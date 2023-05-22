@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   AtlassianNavigation,
   PrimaryButton,
@@ -11,6 +11,11 @@ const App = () => {
   const [produk, setProduk] = useState("isi dengan nama produk");
   const [preffix, setPreffix] = useState("COD|- Bisa COD|~ Bayar Dirumah");
   const [outputList, setOutputList] = useState([]);
+
+  useEffect(() => {
+    // Inisialisasi output setelah rendering komponen
+    generateOutput();
+  }, []);
 
   const generateOutput = () => {
     const suffixes = suffix.split("|");
@@ -29,12 +34,12 @@ const App = () => {
       }
     }
 
-    return resultList;
+    setOutputList(resultList);
   };
 
-  const handleGenerateKeyword = () => {
-    const output = generateOutput();
-    setOutputList(output);
+  const handleCopyAll = () => {
+    const allOutputText = outputList.join("\n");
+    navigator.clipboard.writeText(allOutputText);
   };
 
   return (
@@ -61,15 +66,13 @@ const App = () => {
           placeholder="produk"
           value={produk}
           onChange={(e) => setProduk(e.target.value)}
-          required
         />
         <input
           placeholder="preffix"
           value={preffix}
           onChange={(e) => setPreffix(e.target.value)}
         />
-
-        <button onClick={handleGenerateKeyword}>Generate</button>
+        <button onClick={generateOutput}>Generate</button>
       </div>
 
       <div
@@ -80,11 +83,19 @@ const App = () => {
           margin: "3rem auto",
         }}
       >
-        <ul style={{ marginBottom: "4rem" }}>
+        <ul>
           {outputList.map((output, index) => (
             <li key={index}>{output}</li>
           ))}
         </ul>
+        <button
+          style={{
+            margin: "1rem 0",
+          }}
+          onClick={handleCopyAll}
+        >
+          Copy All
+        </button>
       </div>
     </div>
   );
