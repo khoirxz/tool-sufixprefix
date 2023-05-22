@@ -3,13 +3,13 @@ import {
   AtlassianNavigation,
   PrimaryButton,
 } from "@atlaskit/atlassian-navigation";
-import TextField from "@atlaskit/textfield";
-import { Field } from "@atlaskit/form";
 
 const App = () => {
-  const [preffix, setPreffix] = useState("Preffix 1|Preffix 2");
-  const [produk, setProduk] = useState("Produk 1|Produk 2");
-  const [suffix, setSuffix] = useState("Suffix 1|Suffix 2");
+  const [suffix, setSuffix] = useState(
+    "BEST SELLER -|PALING LARIS !!|TERMURAH !!|PRODUK BARU !!|TERLARIS -|PROMO -|DISKON MENARIK -|BIG SALE -|ORIGINAL -|CUCI GUDANG -|PROMO GILA -"
+  );
+  const [produk, setProduk] = useState("isi dengan nama produk");
+  const [preffix, setPreffix] = useState("COD|- Bisa COD|~ Bayar Dirumah");
   const [outputList, setOutputList] = useState([]);
 
   const generateOutput = () => {
@@ -61,6 +61,7 @@ const App = () => {
           placeholder="produk"
           value={produk}
           onChange={(e) => setProduk(e.target.value)}
+          required
         />
         <input
           placeholder="preffix"
@@ -79,7 +80,7 @@ const App = () => {
           margin: "3rem auto",
         }}
       >
-        <ul>
+        <ul style={{ marginBottom: "4rem" }}>
           {outputList.map((output, index) => (
             <li key={index}>{output}</li>
           ))}
