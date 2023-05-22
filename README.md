@@ -1,3 +1,0 @@
-# tool-sufixprefix
-
-TOOL
