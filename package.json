@@ -10,17 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@atlaskit/atlassian-navigation": "^2.5.2",
-    "@atlaskit/css-reset": "^6.5.2",
-    "@atlaskit/form": "^8.11.3",
-    "@atlaskit/textfield": "^5.4.2",
-    "@atlaskit/tokens": "^1.4.2",
-    "clipboard": "^2.0.11",
+    "@fluentui/react-components": "^9.20.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@atlaskit/eslint-plugin-design-system": "^5.3.2",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^4.0.0",

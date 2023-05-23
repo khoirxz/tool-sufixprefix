@@ -1,8 +1,29 @@
 import { useState, useEffect } from "react";
 import {
-  AtlassianNavigation,
-  PrimaryButton,
-} from "@atlaskit/atlassian-navigation";
+  Button,
+  Field,
+  Input,
+  Popover,
+  PopoverSurface,
+  PopoverTrigger,
+  makeResetStyles,
+  tokens,
+  makeStyles,
+  shorthands,
+} from "@fluentui/react-components";
+
+const useStackClassName = makeResetStyles({
+  display: "flex",
+  flexDirection: "column",
+  rowGap: tokens.spacingVerticalL,
+});
+
+const useStyles = makeStyles({
+  root: {
+    maxWidth: "600px",
+    ...shorthands.margin("0", "auto"),
+  },
+});
 
 const App = () => {
   const [suffix, setSuffix] = useState(
@@ -11,6 +32,8 @@ const App = () => {
   const [produk, setProduk] = useState("isi dengan nama produk");
   const [preffix, setPreffix] = useState("COD|- Bisa COD|~ Bayar Dirumah");
   const [outputList, setOutputList] = useState([]);
+
+  const classes = useStyles();
 
   useEffect(() => {
     // Inisialisasi output setelah rendering komponen
@@ -43,36 +66,30 @@ const App = () => {
   };
 
   return (
-    <div>
-      <AtlassianNavigation
-        label="site"
-        renderProductHome={() => null}
-        primaryItems={[<PrimaryButton>TOOL</PrimaryButton>]}
-      ></AtlassianNavigation>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          maxWidth: "600px",
-          margin: "3rem auto",
-        }}
-      >
-        <input
-          placeholder="suffix"
-          value={suffix}
-          onChange={(e) => setSuffix(e.target.value)}
-        />
-        <input
-          placeholder="produk"
-          value={produk}
-          onChange={(e) => setProduk(e.target.value)}
-        />
-        <input
-          placeholder="preffix"
-          value={preffix}
-          onChange={(e) => setPreffix(e.target.value)}
-        />
-        <button onClick={generateOutput}>Generate</button>
+    <div className={classes.root}>
+      <div className={useStackClassName()}>
+        <Field label="Suffix">
+          <Input
+            defaultValue={suffix}
+            onChange={(e) => setSuffix(e.target.value)}
+          />
+        </Field>
+        <Field label="Produk">
+          <Input
+            defaultValue={produk}
+            onChange={(e) => setProduk(e.target.value)}
+          />
+        </Field>
+        <Field label="Preffix">
+          <Input
+            defaultValue={preffix}
+            onChange={(e) => setPreffix(e.target.value)}
+          />
+        </Field>
+
+        <Button appearance="primary" onClick={generateOutput}>
+          Generate
+        </Button>
       </div>
 
       <div
@@ -88,14 +105,18 @@ const App = () => {
             <li key={index}>{output}</li>
           ))}
         </ul>
-        <button
-          style={{
-            margin: "1rem 0",
-          }}
-          onClick={handleCopyAll}
-        >
-          Copy All
-        </button>
+        <Popover>
+          <PopoverTrigger disableButtonEnhancement>
+            <Button appearance="secondary" onClick={handleCopyAll}>
+              Copy All
+            </Button>
+          </PopoverTrigger>
+          <PopoverSurface>
+            <div>
+              <h3>Copied!</h3>
+            </div>
+          </PopoverSurface>
+        </Popover>
       </div>
     </div>
   );
